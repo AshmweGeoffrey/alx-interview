@@ -6,11 +6,17 @@ import sys
 
 def status_check(line):
     splited_line=line.split(' ')
-    if splited_line[4] == "\"GET" and len(splited_line)==9 and splited_line[5] == "/projects/260" and splited_line[6] == "HTTP/1.1\"":
-        result={"code":splited_line[7],"file_size":splited_line[8]}
-        return result
+    try:
+        if (splited_line[4] == "\"GET" and 
+            len(splited_line)==9 and 
+            splited_line[5] == "/projects/260" and 
+            splited_line[6] == "HTTP/1.1\""):
+            result={"code":splited_line[7],"file_size":splited_line[8]}
+            return result
+    except IndexError:
+        pass
     return None
-def printx():
+def print_metrics():
     print("File size: {}".format(file_size))
     for key,data in status.items():
         if data !=0:
@@ -28,7 +34,7 @@ try:
             file_size += int(obtained_result["file_size"])
             count += 1
         if count == 10:
-            printx()
+            print_metrics()
             count=0
 except KeyboardInterrupt:
-    printx()
+    print_metrics()
