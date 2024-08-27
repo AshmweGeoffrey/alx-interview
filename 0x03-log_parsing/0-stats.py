@@ -30,8 +30,14 @@ try:
     for line in sys.stdin:
         obtained_result=status_check(line)
         if obtained_result != None:
-            status[obtained_result["code"]] += 1
-            file_size += int(obtained_result["file_size"])
+            try:
+                status[obtained_result["code"]] += 1
+            except Exception as e:
+                pass
+            try:
+                file_size += int(obtained_result["file_size"])
+            except Exception as e:
+                pass
             count += 1
         if count == 10:
             print_metrics()
