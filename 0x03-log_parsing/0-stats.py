@@ -41,6 +41,6 @@ try:
             count += 1
         if count == 10:
             print_metrics()
-            count=0
+            count=1
 except KeyboardInterrupt:
     print_metrics()
