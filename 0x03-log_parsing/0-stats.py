@@ -8,10 +8,9 @@ def status_check(line):
     splited_line=line.split()
     try:
         result={"code":splited_line[-2],"file_size":splited_line[-1]}
-        return result
     except IndexError:
         pass
-    return None
+    return result
 def print_metrics():
     print("File size: {}".format(file_size))
     for key,data in sorted(status.items()):
