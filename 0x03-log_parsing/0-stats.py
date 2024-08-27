@@ -1,42 +1,44 @@
 #!/usr/bin/python3
-""" Log parsing Script
-"""
 
+""" script that reads stdin line by line and computes metrics: """
 
 import sys
 
-
-def printx(data, status):
-    """ print the log """
-    print("File size: {}".format(data))
-    for key, value in sorted(status.items()):
-        if value != 0:
-            print("{}: {}".format(key, value))
-
-
-status = {
-    "200": 0, "301": 0, "400": 0, "401": 0,
+def status_check(line):
+    splited_line=line.split()
+    try:
+        result={"code":splited_line[-2],"file_size":splited_line[-1]}
+        return result
+    except IndexError:
+        pass
+    return None
+def print_metrics():
+    print("File size: {}".format(file_size))
+    for key,data in status.items():
+        if data !=0:
+            print("{}: {}".format(key,data))
+status = {"200": 0, "301": 0, "400": 0, "401": 0,
     "403": 0, "404": 0, "405": 0, "500": 0}
-counter = 0
-data = 0
+file_size=0
+count=0
 try:
     for line in sys.stdin:
-        if counter == 10:
-            printx(data, status)
-            counter = 1
-        else:
-            counter = counter + 1
-        parsed = line.split()
-        try:
-            data = data + int(parsed[-1])
-        except Exception as e:
-            pass
-        try:
-            for key, value in status.items():
-                if key == parsed[-2]:
-                    status[key] = status[key] + 1
-        except Exception as e:
-            pass
-    printx(data, status)
+        obtained_result=status_check(line)
+        if obtained_result != None:
+            if count == 10:
+                print_metrics()
+                count=1
+            try:
+                status[obtained_result["code"]] += 1
+            except Exception as e:
+                pass
+            try:
+                file_size += int(obtained_result["file_size"])
+            except Exception as e:
+                pass
+            count += 1
+        if count == 10:
+            print_metrics()
+            count=1
 except KeyboardInterrupt as e:
-    printx(data, status)
+    print_metrics()
