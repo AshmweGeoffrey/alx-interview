@@ -7,7 +7,7 @@ import sys
 def status_check(line):
     splited_line=line.split()
     try:
-        result={"code":splited_line[-2],"file_size":splited_line[-1]}
+        result={"code":splited_line[-2],"file_size":int(splited_line[-1])}
     except IndexError:
         pass
     return result
@@ -30,11 +30,13 @@ try:
         obtained_result=status_check(line)
         if obtained_result != None:
             try:
-                status[obtained_result["code"]] += 1
+                for key, value in status.items():
+                    if key == obtained_result["code"]:
+                        status[key] += 1
             except Exception as e:
                 pass
             try:
-                file_size += int(obtained_result["file_size"])
+                file_size += obtained_result["file_size"]
             except Exception as e:
                 pass
     print_metrics()
