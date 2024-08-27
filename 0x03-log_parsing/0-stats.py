@@ -23,11 +23,13 @@ file_size=0
 count=0
 try:
     for line in sys.stdin:
+        if count == 10:
+            print_metrics()
+            count=1
+        else:
+            count +=1
         obtained_result=status_check(line)
         if obtained_result != None:
-            if count == 10:
-                print_metrics()
-                count=0
             try:
                 status[obtained_result["code"]] += 1
             except Exception as e:
@@ -36,6 +38,5 @@ try:
                 file_size += int(obtained_result["file_size"])
             except Exception as e:
                 pass
-            count += 1
 except KeyboardInterrupt as e:
     print_metrics()
