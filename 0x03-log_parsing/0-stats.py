@@ -7,12 +7,8 @@ import sys
 def status_check(line):
     splited_line=line.split(' ')
     try:
-        if (splited_line[4] == "\"GET" and 
-            len(splited_line)==9 and 
-            splited_line[5] == "/projects/260" and 
-            splited_line[6] == "HTTP/1.1\""):
-            result={"code":splited_line[7],"file_size":splited_line[8]}
-            return result
+        result={"code":splited_line[-2],"file_size":splited_line[-1]}
+        return result
     except IndexError:
         pass
     return None
@@ -42,5 +38,5 @@ try:
         if count == 10:
             print_metrics()
             count=1
-except KeyboardInterrupt:
+except KeyboardInterrupt as e:
     print_metrics()
