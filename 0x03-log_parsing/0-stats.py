@@ -5,7 +5,7 @@
 import sys
 
 def status_check(line):
-    splited_line=line.split(' ')
+    splited_line=line.split()
     try:
         result={"code":splited_line[-2],"file_size":splited_line[-1]}
         return result
