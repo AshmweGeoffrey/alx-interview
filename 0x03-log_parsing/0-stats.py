@@ -33,7 +33,7 @@ try:
             status[obtained_result["code"]] += 1
             file_size += int(obtained_result["file_size"])
             count += 1
-        if count == 8:
+        if count == 10:
             print_metrics()
             count=0
 except KeyboardInterrupt:
