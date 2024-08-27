@@ -27,7 +27,7 @@ try:
         if obtained_result != None:
             if count == 10:
                 print_metrics()
-                count=1
+                count=0
             try:
                 status[obtained_result["code"]] += 1
             except Exception as e:
@@ -37,8 +37,5 @@ try:
             except Exception as e:
                 pass
             count += 1
-        if count == 10:
-            print_metrics()
-            count=1
 except KeyboardInterrupt as e:
     print_metrics()
