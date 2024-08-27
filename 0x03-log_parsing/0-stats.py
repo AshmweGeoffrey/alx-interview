@@ -14,7 +14,7 @@ def status_check(line):
     return None
 def print_metrics():
     print("File size: {}".format(file_size))
-    for key,data in status.items():
+    for key,data in sorted(status.items()):
         if data !=0:
             print("{}: {}".format(key,data))
 status = {"200": 0, "301": 0, "400": 0, "401": 0,
