@@ -37,5 +37,6 @@ try:
                 file_size += int(obtained_result["file_size"])
             except Exception as e:
                 pass
+    print_metrics()
 except KeyboardInterrupt as e:
     print_metrics()
